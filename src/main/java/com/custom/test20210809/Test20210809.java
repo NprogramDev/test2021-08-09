@@ -1,11 +1,13 @@
 package com.custom.test20210809;
 
+import com.custom.test20210809.tick.TickEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -17,6 +19,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.stream.Collectors;
+
+import static net.minecraft.util.registry.Bootstrap.register;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("test2021-08-09")
@@ -36,6 +40,9 @@ public class Test20210809 {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
         // Register ourselves for server and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(new TickEvent());
+        RunBotRunnerKeyEvent.register();
+        MinecraftForge.EVENT_BUS.register(new RunBotRunnerKeyEvent());
         MinecraftForge.EVENT_BUS.register(this);
     }
 
